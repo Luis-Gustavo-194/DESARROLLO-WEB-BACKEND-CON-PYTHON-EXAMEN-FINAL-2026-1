@@ -50,28 +50,3 @@ Categoria ──< Producto ──< ItemPedido >── Pedido >── User
 de un usuario **es** su `Pedido` en estado `'carrito'` — no es una entidad
 aparte.
 
-## Lo que tienes que completar
-
-Cada uno tiene un bloque `### START CODE HERE ### / ### END CODE HERE ###`
-en el archivo correspondiente:
-
-1. `tienda/forms.py` — `ProductoForm`
-2. `tienda/serializers.py` + `tienda/api_views.py` — `ProductoSerializer` y `ProductoDetailAPIView`
-3. `tienda/serializers.py` + `tienda/api_views.py` — `AgregarAlCarritoSerializer` y `AgregarAlCarritoAPIView`
-4. `tienda/api_views.py` — `ConfirmarCompraAPIView`
-
-Las instrucciones detalladas de cada una se entregan aparte.
-
-## Cómo correr los tests
-
-```bash
-python manage.py test tienda --verbosity 2
-```
-
-Al empezar, los 8 tests fallan — es lo esperado. A medida que completes
-cada pieza, los tests relacionados deberían ir pasando.
-
-## Entrega
-
-Sube tu proyecto a un repositorio **público** de GitHub y comparte la URL
-en Paideia.

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}AnimeFiguras{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+        crossorigin="anonymous">
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="{% if user.is_authenticated %}{% url 'tienda:catalogo' %}{% else %}{% url 'tienda:ingreso' %}{% endif %}">
+        🎌 AnimeFiguras
+      </a>
+      {% if user.is_authenticated %}
+      <div class="d-flex align-items-center">
+        <span class="text-light me-3">Hola, {{ user.username }}</span>
+        {% if user.is_staff %}
+        <a href="{% url 'tienda:crear_producto' %}" class="btn btn-outline-light btn-sm me-2">+ Nuevo producto</a>
+        {% endif %}
+        <a href="{% url 'tienda:logout' %}" class="btn btn-light btn-sm">Cerrar sesión</a>
+      </div>
+      {% endif %}
+    </div>
+  </nav>
+
+  <div class="container mt-4 mb-5">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+          crossorigin="anonymous"></script>
+</body>
+</html>

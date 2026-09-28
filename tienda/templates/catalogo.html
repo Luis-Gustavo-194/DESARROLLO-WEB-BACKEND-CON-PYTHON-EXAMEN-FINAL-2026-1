@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="row mb-4">
+  <div class="col-12">
+    <form method="get" class="row g-2">
+      <div class="col-md-4">
+        <select name="categoria" class="form-select" onchange="this.form.submit()">
+          <option value="">Todas las categorías</option>
+          {% for cat in categorias %}
+            <option value="{{ cat.id }}" {% if cat.id == categoria_seleccionada %}selected{% endif %}>
+              {{ cat.nombre }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-5">
+        <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Buscar figura por nombre...">
+      </div>
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-primary w-100">Buscar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row g-4">
+  {% for producto in productos %}
+    <div class="col-md-4 col-lg-3">
+      <div class="card h-100 shadow-sm border-0">
+        {% if producto.imagen %}
+          <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}" style="height:220px;object-fit:cover;">
+        {% else %}
+          <img src="https://via.placeholder.com/300x220?text=Figura" class="card-img-top" alt="Sin foto">
+        {% endif %}
+        <div class="card-body">
+          <span class="badge bg-secondary mb-2">{{ producto.categoria.nombre }}</span>
+          <h6 class="card-title">{{ producto.nombre }}</h6>
+          <p class="text-primary fw-bold mb-1">S/ {{ producto.precio }}</p>
+          <p class="small text-muted">Stock: {{ producto.stock }}</p>
+        </div>
+        <div class="card-footer bg-white border-0">
+          <a href="{% url 'tienda:detalle_producto' producto.id %}" class="btn btn-sm btn-outline-primary w-100">
+            Ver detalle
+          </a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-muted">No hay productos que coincidan con la búsqueda.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}
